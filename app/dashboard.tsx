@@ -22,8 +22,6 @@ export default function Index() {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const slideAnim = useRef(new Animated.Value(-sidebarWidth)).current;
-
-    // Search input state
     const [searchText, setSearchText] = useState("");
 
     const toggleSidebar = () => {
@@ -43,7 +41,6 @@ export default function Index() {
         }
     };
 
-    // Sample card data
     const cards = [
         {
             id: 1,
@@ -93,11 +90,7 @@ export default function Index() {
         <View style={styles.container}>
             {/* TOP BANNER */}
             <View style={styles.topbanner}>
-                <TouchableOpacity
-                    onPress={toggleSidebar}
-                    activeOpacity={0.7}
-                    style={styles.iconButton}
-                >
+                <TouchableOpacity onPress={toggleSidebar} activeOpacity={0.7} style={styles.iconButton}>
                     <Image source={sliderImg} style={styles.logo} />
                 </TouchableOpacity>
                 <Text style={styles.appTitle}>Learning Hub</Text>
@@ -118,14 +111,14 @@ export default function Index() {
                 />
             </View>
 
-            {/* HORIZONTAL CARDS SLIDER */}
+            {/* HORIZONTAL CARDS */}
             <View style={styles.cardsContainer}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 15, fontWeight: 'bold' }}>
+                    <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 16, fontWeight: 'bold', color: '#1F2937' }}>
                         Hot Learning Topics
                     </Text>
                     <TouchableOpacity>
-                        <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 15, fontWeight: '500' }}>
+                        <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 15, fontWeight: '500', color: '#2563EB' }}>
                             Show all
                         </Text>
                     </TouchableOpacity>
@@ -155,9 +148,7 @@ export default function Index() {
             {sidebarVisible && (
                 <>
                     <Pressable style={styles.overlay} onPress={toggleSidebar} />
-                    <Animated.View
-                        style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}
-                    >
+                    <Animated.View style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}>
                         <Text style={styles.sidebarTitle}>Menu</Text>
 
                         <View style={styles.menuItem}>
@@ -185,110 +176,107 @@ export default function Index() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "#F9FAFB",
     },
     topbanner: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop: 10,
-        paddingHorizontal: 20,
-        paddingBottom: 0,
+        marginTop: 15,
+        paddingHorizontal: 24,
+        paddingBottom: 10,
         borderBottomWidth: 1,
-        borderBottomColor: "#eee",
+        borderBottomColor: "#E5E7EB",
+        backgroundColor: "#fff",
     },
     iconButton: {
-        padding: 8,
-        borderRadius: 12,
+        padding: 10,
+        borderRadius: 50,
+        backgroundColor: "#F3F4F6",
     },
     logo: {
-        width: 40,
-        height: 40,
+        width: 28,
+        height: 28,
         resizeMode: "contain",
     },
     userimg: {
-        width: 35,
-        height: 35,
-        resizeMode: "contain",
-        borderRadius: 22.5,
+        width: 36,
+        height: 36,
+        borderRadius: 18,
         borderWidth: 1,
-        borderColor: "#ddd",
+        borderColor: "#D1D5DB",
     },
     appTitle: {
-        fontSize: 22,
-        fontWeight: "900",
-        color: "#111",
-        letterSpacing: 1,
+        fontSize: 20,
+        fontWeight: "800",
+        color: "#1F2937",
+        letterSpacing: 0.5,
     },
     searchContainer: {
         paddingHorizontal: 20,
         marginTop: 20,
     },
     searchInput: {
-        backgroundColor: "#f0f0f0",
-        borderRadius: 12,
+        backgroundColor: "#F3F4F6",
+        borderRadius: 14,
         paddingVertical: 12,
-        paddingHorizontal: 20,
+        paddingHorizontal: 18,
         fontSize: 16,
-        color: "#222",
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 2,
+        color: "#111827",
+        borderWidth: 1,
+        borderColor: "#E5E7EB",
     },
     cardsContainer: {
-        marginTop: 25,
+        marginTop: 30,
     },
     card: {
         flexDirection: "row",
         width: 290,
         backgroundColor: "#fff",
-        borderRadius: 14,
-        marginRight: 15,
-        padding: 15,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 3,
+        borderRadius: 16,
+        marginRight: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: "#E5E7EB",
     },
+
     cardImageLeft: {
-        width: 100,
-        height: 100,
+        width: 90,
+        height: 90,
         borderRadius: 12,
         resizeMode: "cover",
-        marginRight: 15,
+        marginRight: 14,
     },
     cardContent: {
         flex: 1,
         justifyContent: "center",
     },
     cardTitle: {
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: "700",
-        color: "#111",
+        color: "#111827",
     },
     cardDesc: {
-        fontSize: 14,
-        color: "#666",
-        marginVertical: 6,
+        fontSize: 13,
+        color: "#6B7280",
+        marginTop: 4,
+        marginBottom: 8,
     },
     topicBadge: {
         alignSelf: "flex-start",
-        backgroundColor: "#eee",
+        backgroundColor: "#E0F2FE",
         paddingHorizontal: 10,
-        paddingVertical: 4,
-        borderRadius: 12,
+        paddingVertical: 5,
+        borderRadius: 10,
     },
     topicText: {
         fontSize: 12,
-        color: "#555",
+        color: "#0284C7",
         fontWeight: "600",
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: "rgba(0,0,0,0.3)",
+        backgroundColor: "rgba(0,0,0,0.35)",
     },
     sidebar: {
         position: "absolute",
@@ -296,32 +284,31 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         width: Dimensions.get("window").width * 0.85,
-        backgroundColor: "#fff",
-        paddingVertical: 40,
+        backgroundColor: "#ffffff",
+        paddingVertical: 50,
         paddingHorizontal: 25,
-        elevation: 8,
+        elevation: 10,
         shadowColor: "#000",
-        shadowOffset: { width: 4, height: 0 },
-        shadowOpacity: 0.2,
+        shadowOffset: { width: 5, height: 0 },
+        shadowOpacity: 0.15,
         shadowRadius: 10,
-        borderTopRightRadius: 25,
-        borderBottomRightRadius: 25,
+        borderTopRightRadius: 30,
+        borderBottomRightRadius: 30,
     },
     sidebarTitle: {
-        fontSize: 26,
-        fontWeight: "bold",
-        marginBottom: 30,
-        color: "#222",
-        letterSpacing: 1.2,
+        fontSize: 24,
+        fontWeight: "800",
+        marginBottom: 25,
+        color: "#111827",
     },
     menuItem: {
-        paddingVertical: 15,
+        paddingVertical: 16,
         borderBottomWidth: 1,
-        borderBottomColor: "#eee",
+        borderBottomColor: "#F3F4F6",
     },
     menuText: {
-        fontSize: 18,
-        color: "#333",
+        fontSize: 17,
+        color: "#374151",
         fontWeight: "600",
     },
 });
