@@ -18,6 +18,9 @@ export default function Index() {
                 <Text style={styles.shortDesc}>
                     All your courses, tutorials, and guides in one place.
                 </Text>
+                <Text style={styles.companytext}>
+                    Powered By BlackalphaLabs
+                </Text>
             </View>
 
             <Link href="/dashboard" asChild>
@@ -63,6 +66,13 @@ const styles = StyleSheet.create({
         color: '#555',
         textAlign: 'center',
     },
+    companytext: {
+        marginTop: 80,
+        fontSize: 10,
+        color: '#555',
+        textAlign: 'center',
+    },
+
     button: {
         backgroundColor: 'black',
         paddingVertical: 15,
