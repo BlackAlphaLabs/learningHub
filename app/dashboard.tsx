@@ -5,6 +5,7 @@ import {
     Dimensions,
     Image,
     Pressable,
+    ScrollView,
     StyleSheet,
     Text,
     TextInput,
@@ -42,6 +43,52 @@ export default function Index() {
         }
     };
 
+    // Sample card data
+    const cards = [
+        {
+            id: 1,
+            image: require("../assets/images/Coding1.png"),
+            title: "React Basics",
+            description: "Learn fundamentals of React.js",
+            topic: "Frontend",
+        },
+        {
+            id: 2,
+            image: require("../assets/images/Coding2.png"),
+            title: "Node.js Guide",
+            description: "Master backend development",
+            topic: "Backend",
+        },
+        {
+            id: 3,
+            image: require("../assets/images/Coding3.png"),
+            title: "MongoDB Essentials",
+            description: "Understand NoSQL databases",
+            topic: "Database",
+        },
+        {
+            id: 4,
+            image: require("../assets/images/Coding4.png"),
+            title: "Express.js Intro",
+            description: "Build RESTful APIs easily",
+            topic: "Backend",
+        },
+        {
+            id: 5,
+            image: require("../assets/images/Coding5.png"),
+            title: "JavaScript Tips",
+            description: "Write clean and efficient JS",
+            topic: "Programming",
+        },
+        {
+            id: 6,
+            image: require("../assets/images/Coding1.png"),
+            title: "Tailwind CSS",
+            description: "Style with utility-first CSS",
+            topic: "Design",
+        },
+    ];
+
     return (
         <View style={styles.container}>
             {/* TOP BANNER */}
@@ -69,6 +116,39 @@ export default function Index() {
                     style={styles.searchInput}
                     returnKeyType="search"
                 />
+            </View>
+
+            {/* HORIZONTAL CARDS SLIDER */}
+            <View style={styles.cardsContainer}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 15, fontWeight: 'bold' }}>
+                        Hot Learning Topics
+                    </Text>
+                    <TouchableOpacity>
+                        <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 15, fontWeight: '500' }}>
+                            Show all
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingHorizontal: 20 }}
+                >
+                    {cards.map((card) => (
+                        <View key={card.id} style={styles.card}>
+                            <Image source={card.image} style={styles.cardImageLeft} />
+                            <View style={styles.cardContent}>
+                                <Text style={styles.cardTitle}>{card.title}</Text>
+                                <Text style={styles.cardDesc}>{card.description}</Text>
+                                <View style={styles.topicBadge}>
+                                    <Text style={styles.topicText}>{card.topic}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    ))}
+                </ScrollView>
             </View>
 
             {/* SIDEBAR + OVERLAY */}
@@ -156,6 +236,55 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 2,
         elevation: 2,
+    },
+    cardsContainer: {
+        marginTop: 25,
+    },
+    card: {
+        flexDirection: "row",
+        width: 290,
+        backgroundColor: "#fff",
+        borderRadius: 14,
+        marginRight: 15,
+        padding: 15,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 3,
+    },
+    cardImageLeft: {
+        width: 100,
+        height: 100,
+        borderRadius: 12,
+        resizeMode: "cover",
+        marginRight: 15,
+    },
+    cardContent: {
+        flex: 1,
+        justifyContent: "center",
+    },
+    cardTitle: {
+        fontSize: 18,
+        fontWeight: "700",
+        color: "#111",
+    },
+    cardDesc: {
+        fontSize: 14,
+        color: "#666",
+        marginVertical: 6,
+    },
+    topicBadge: {
+        alignSelf: "flex-start",
+        backgroundColor: "#eee",
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+        borderRadius: 12,
+    },
+    topicText: {
+        fontSize: 12,
+        color: "#555",
+        fontWeight: "600",
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
