@@ -117,11 +117,13 @@ export default function Index() {
                     <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 16, fontWeight: 'bold', color: '#1F2937' }}>
                         Hot Learning Topics
                     </Text>
-                    <TouchableOpacity>
-                        <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 15, fontWeight: '500', color: '#2563EB' }}>
-                            Show all
-                        </Text>
-                    </TouchableOpacity>
+                    <Link href="/hotLearning" asChild>
+                        <TouchableOpacity>
+                            <Text style={{ paddingHorizontal: 20, paddingBottom: 10, fontSize: 15, fontWeight: '500', color: '#2563EB' }}>
+                                Show all
+                            </Text>
+                        </TouchableOpacity>
+                    </Link>
                 </View>
 
                 <ScrollView
