@@ -1,15 +1,29 @@
+import { Link } from "expo-router";
 import { useRef, useState } from "react";
-import { Animated, Dimensions, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+    Animated,
+    Dimensions,
+    Image,
+    Pressable,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 export default function Index() {
     const sliderImg = require("../assets/images/SliderDash.png");
     const userImg = require("../assets/images/UserDash.png");
 
-    const screenWidth = Dimensions.get('window').width;
+    const screenWidth = Dimensions.get("window").width;
     const sidebarWidth = screenWidth * 0.85;
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const slideAnim = useRef(new Animated.Value(-sidebarWidth)).current;
+
+    // Search input state
+    const [searchText, setSearchText] = useState("");
 
     const toggleSidebar = () => {
         if (sidebarVisible) {
@@ -32,7 +46,11 @@ export default function Index() {
         <View style={styles.container}>
             {/* TOP BANNER */}
             <View style={styles.topbanner}>
-                <TouchableOpacity onPress={toggleSidebar} activeOpacity={0.7} style={styles.iconButton}>
+                <TouchableOpacity
+                    onPress={toggleSidebar}
+                    activeOpacity={0.7}
+                    style={styles.iconButton}
+                >
                     <Image source={sliderImg} style={styles.logo} />
                 </TouchableOpacity>
                 <Text style={styles.appTitle}>Learning Hub</Text>
@@ -41,15 +59,33 @@ export default function Index() {
                 </TouchableOpacity>
             </View>
 
+            {/* SEARCH INPUT */}
+            <View style={styles.searchContainer}>
+                <TextInput
+                    value={searchText}
+                    onChangeText={setSearchText}
+                    placeholder="Search Questions"
+                    placeholderTextColor="#888"
+                    style={styles.searchInput}
+                    returnKeyType="search"
+                />
+            </View>
+
             {/* SIDEBAR + OVERLAY */}
             {sidebarVisible && (
                 <>
                     <Pressable style={styles.overlay} onPress={toggleSidebar} />
-                    <Animated.View style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}>
+                    <Animated.View
+                        style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}
+                    >
                         <Text style={styles.sidebarTitle}>Menu</Text>
+
                         <View style={styles.menuItem}>
-                            <Text style={styles.menuText}>Home</Text>
+                            <Link href="/">
+                                <Text style={styles.menuText}>Home</Text>
+                            </Link>
                         </View>
+
                         <View style={styles.menuItem}>
                             <Text style={styles.menuText}>Courses</Text>
                         </View>
@@ -69,17 +105,17 @@ export default function Index() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: "#fff",
     },
     topbanner: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         marginTop: 10,
         paddingHorizontal: 20,
         paddingBottom: 0,
         borderBottomWidth: 1,
-        borderBottomColor: '#eee',
+        borderBottomColor: "#eee",
     },
     iconButton: {
         padding: 8,
@@ -88,37 +124,54 @@ const styles = StyleSheet.create({
     logo: {
         width: 40,
         height: 40,
-        resizeMode: 'contain',
+        resizeMode: "contain",
     },
     userimg: {
         width: 35,
         height: 35,
-        resizeMode: 'contain',
+        resizeMode: "contain",
         borderRadius: 22.5,
         borderWidth: 1,
-        borderColor: '#ddd',
+        borderColor: "#ddd",
     },
     appTitle: {
         fontSize: 22,
-        fontWeight: '900',
-        color: '#111',
+        fontWeight: "900",
+        color: "#111",
         letterSpacing: 1,
+    },
+    searchContainer: {
+        paddingHorizontal: 20,
+        marginTop: 20,
+    },
+    searchInput: {
+        backgroundColor: "#f0f0f0",
+        borderRadius: 12,
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        fontSize: 16,
+        color: "#222",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        elevation: 2,
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: "rgba(0,0,0,0.3)",
     },
     sidebar: {
-        position: 'absolute',
+        position: "absolute",
         top: 0,
         bottom: 0,
         left: 0,
-        width: Dimensions.get('window').width * 0.85,
-        backgroundColor: '#fff',
+        width: Dimensions.get("window").width * 0.85,
+        backgroundColor: "#fff",
         paddingVertical: 40,
         paddingHorizontal: 25,
         elevation: 8,
-        shadowColor: '#000',
+        shadowColor: "#000",
         shadowOffset: { width: 4, height: 0 },
         shadowOpacity: 0.2,
         shadowRadius: 10,
@@ -127,19 +180,19 @@ const styles = StyleSheet.create({
     },
     sidebarTitle: {
         fontSize: 26,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginBottom: 30,
-        color: '#222',
+        color: "#222",
         letterSpacing: 1.2,
     },
     menuItem: {
         paddingVertical: 15,
         borderBottomWidth: 1,
-        borderBottomColor: '#eee',
+        borderBottomColor: "#eee",
     },
     menuText: {
         fontSize: 18,
-        color: '#333',
-        fontWeight: '600',
+        color: "#333",
+        fontWeight: "600",
     },
 });
