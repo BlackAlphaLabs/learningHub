@@ -1,16 +1,14 @@
 import { Link } from "expo-router";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
     Animated,
     Dimensions,
-    Image,
-    Pressable,
+    Image, Linking, Pressable,
     ScrollView,
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
-    View,
+    View
 } from "react-native";
 
 export default function Dashboard() {
@@ -22,7 +20,6 @@ export default function Dashboard() {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const slideAnim = useRef(new Animated.Value(-sidebarWidth)).current;
-    const [searchText, setSearchText] = useState("");
 
     const toggleSidebar = () => {
         if (sidebarVisible) {
@@ -75,16 +72,13 @@ export default function Dashboard() {
                 </TouchableOpacity>
             </View>
 
-            {/* SEARCH INPUT */}
+            {/* SEARCH BUTTON */}
             <View style={styles.searchContainer}>
-                <TextInput
-                    value={searchText}
-                    onChangeText={setSearchText}
-                    placeholder="Search Questions"
-                    placeholderTextColor="#888"
-                    style={styles.searchInput}
-                    returnKeyType="search"
-                />
+                <Link href="/searchQuestions" asChild>
+                    <TouchableOpacity style={styles.searchButton} activeOpacity={0.8}>
+                        <Text style={styles.searchButtonText}>Go to Search</Text>
+                    </TouchableOpacity>
+                </Link>
             </View>
 
             {/* HOT LEARNING */}
@@ -146,21 +140,65 @@ export default function Dashboard() {
                 <>
                     <Pressable style={styles.overlay} onPress={toggleSidebar} />
                     <Animated.View style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}>
-                        <Text style={styles.sidebarTitle}>Menu</Text>
-                        <View style={styles.menuItem}>
-                            <Link href="/">
-                                <Text style={styles.menuText}>Home</Text>
-                            </Link>
-                        </View>
-                        <View style={styles.menuItem}>
-                            <Text style={styles.menuText}>Courses</Text>
-                        </View>
-                        <View style={styles.menuItem}>
-                            <Text style={styles.menuText}>Profile</Text>
-                        </View>
-                        <View style={styles.menuItem}>
-                            <Text style={styles.menuText}>Settings</Text>
-                        </View>
+                        {/* Added ScrollView here for scrolling content */}
+                        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 30 }}>
+                            <Text style={styles.sidebarTitle}>Menu</Text>
+                            <View style={styles.menuItem}>
+                                <Link href="/">
+                                    <Text style={styles.menuText}>Home</Text>
+                                </Link>
+                            </View>
+                            <View style={styles.menuItem}>
+                                <Text style={styles.menuText}>Courses</Text>
+                            </View>
+                            <View style={styles.menuItem}>
+                                <Text style={styles.menuText}>Profile</Text>
+                            </View>
+                            <View style={styles.menuItem}>
+                                <Text style={styles.menuText}>Settings</Text>
+                            </View>
+
+                            <View style={{ marginTop: 10 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#111827' }}>
+                                    About Learning Hub
+                                </Text>
+                                <Text style={{ paddingTop: 10, fontSize: 14, color: '#4B5563', lineHeight: 20 }}>
+                                    Learning Hub is your go-to platform for cutting-edge technology tutorials and resources. We provide carefully curated content to help developers enhance their skills in modern web and backend development. Our mission is to empower learners with practical knowledge and hands-on experience, ensuring you stay ahead in the fast-paced tech world.
+                                </Text>
+
+                                <Text style={{ marginTop: 12, fontSize: 13, color: '#6B7280', fontWeight: '600' }}>
+                                    Powered by Rest API and engineered by{' '}
+                                    <Text
+                                        style={{ color: '#2563EB', fontWeight: '700', textDecorationLine: 'underline' }}
+                                        onPress={() => Linking.openURL("https://www.blackalphalabs.com/")}
+                                    >
+                                        BlackAlphaLabs
+                                    </Text>
+                                </Text>
+
+                                <Text style={{ marginTop: 16, fontSize: 14, color: '#374151', lineHeight: 22 }}>
+                                    <Text style={{ fontWeight: '700', fontSize: 15 }}>About This Release{'\n'}</Text>
+                                    Learning Hub by BlackAlphaLabs is a modern, mobile and desktop-friendly web platform designed specifically for developers, students, and tech enthusiasts. This is the initial release of Learning Hub, focusing entirely on web development using the MERN stack.
+                                </Text>
+
+                                <Text style={{ marginTop: 14, fontSize: 14, color: '#374151', lineHeight: 22 }}>
+                                    <Text style={{ fontWeight: '700', fontSize: 15 }}>Current Features{'\n'}</Text>
+                                    • Browse categorized, quick-access tech resources curated by developers.{'\n'}
+                                    • Instantly view guides, frameworks, database references, and deployment tutorials for MERN projects.{'\n'}
+                                    • Responsive, clean and attractive UI optimized for mobile and desktop browsers.{'\n'}
+                                    • Strictly view-only access for public users. Only authorized platform developers can add or manage resources for now.
+                                </Text>
+
+                                <Text style={{ marginTop: 14, fontSize: 14, color: '#374151', lineHeight: 22 }}>
+                                    <Text style={{ fontWeight: '700', fontSize: 15 }}>Planned Future Updates{'\n'}</Text>
+                                    • Add support for other tech stacks like Python, Django, Java, PHP, and Go.{'\n'}
+                                    • Expand categories to cover UI/UX, cloud hosting, DevOps, security, AI, and more.{'\n'}
+                                    • Implement a user-submitted Q&A section.{'\n'}
+                                    • Introduce public contributor access for verified developers.{'\n'}
+                                    • Continuous monthly resource updates.
+                                </Text>
+                            </View>
+                        </ScrollView>
                     </Animated.View>
                 </>
             )}
@@ -200,16 +238,26 @@ const styles = StyleSheet.create({
         color: "#1F2937",
         letterSpacing: 0.5,
     },
-    searchContainer: { paddingHorizontal: 20, marginTop: 20 },
-    searchInput: {
-        backgroundColor: "#F3F4F6",
-        borderRadius: 14,
+    searchContainer: {
+        paddingHorizontal: 20,
+        marginTop: 20,
+        alignItems: "center",
+    },
+    searchButton: {
+        backgroundColor: "#2563EB",
         paddingVertical: 12,
-        paddingHorizontal: 18,
+        paddingHorizontal: 25,
+        borderRadius: 14,
+        shadowColor: "#2563EB",
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.4,
+        shadowRadius: 8,
+        elevation: 5,
+    },
+    searchButtonText: {
+        color: "#fff",
+        fontWeight: "700",
         fontSize: 16,
-        color: "#111827",
-        borderWidth: 1,
-        borderColor: "#E5E7EB",
     },
     sectionTitle: {
         paddingHorizontal: 20,
